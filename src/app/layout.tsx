@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
-import "./globals.css";
+import { Nunito } from 'next/font/google';
+import { Header } from '@/components/shared/header';
+
+import './globals.css';
 
 const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["cyrillic"],
+  subsets: ['cyrillic'],
+  variable: '--font-nunito',
+  weight: ['400', '500', '600', '700', '800', '900'],
 });
-
 
 export default function RootLayout({
   children,
@@ -15,9 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${nunito.variable} ${nunito.variable} antialiased`}
-      >
+      <head>
+        <link data-rh="true" rel="icon" href="/logo.png" />
+      </head>
+      <body className={nunito.className}>
+        <Header/>
         {children}
       </body>
     </html>
