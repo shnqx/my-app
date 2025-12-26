@@ -24,13 +24,12 @@ export const ProductGroupList: React.FC<Props> = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const { ref, entry } = useIntersection({
         // root: containerRef.current,
-        threshold: 0.4,
+        threshold: 0.7,
     });
 
     useEffect(() => {
         if (entry?.isIntersecting) {
             setActiveCategoryId(categoryId)
-            console.log(categoryId, title)
         }
     }, [categoryId, entry?.isIntersecting, title])
 

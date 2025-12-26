@@ -17,10 +17,10 @@ export const ProductCard: React.FC<Props> = ({ id, name, price, imageUrl, classN
             <Link href={`/product/${id}`}>
                 <div className="p-6 justify-center">
                     <div>
-                        <img alt={name} src={imageUrl} />
+                        <img className="w-215 h-215" alt={name} src={imageUrl} />
                     </div>
                     <div>
-                        <h1 className="mt-5 text-lg font-bold">{name}</h1>
+                        <h1 className="text-lg font-bold">{name}</h1>
                         <div className="mt-4 flex justify-between">
                             <p className="mt-5 font-bold">{price + "р"}</p>
                             <Button variant="destructive">Заказать</Button>
