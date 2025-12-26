@@ -25,7 +25,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 
 
     return (
-        <header className={cn('border-b bg-secondary border-gray-100', className)}>
+        <header className={cn('sticky top-0 z-50 border-b bg-secondary border-gray-100', className)}>
             <Container className="flex items-center justify-between py-4">
                 <div>
                     <h1 className="text-2xl uppercase text-primary font-black">Burgers</h1>

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mantine/hooks": "^8.3.10",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-slot": "^1.2.4",
     "@tabler/icons-react": "^3.36.0",
@@ -17,9 +18,9 @@
     "next": "16.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-use": "^17.6.0",
     "tabler": "^1.0.0",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
