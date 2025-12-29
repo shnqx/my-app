@@ -24,7 +24,7 @@ export const ProductGroupList: React.FC<Props> = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const { ref, entry } = useIntersection({
         // root: containerRef.current,
-        threshold: 0.7,
+        threshold: 0.8,
     });
 
     useEffect(() => {

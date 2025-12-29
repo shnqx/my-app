@@ -11,8 +11,6 @@ interface Props {
 export const StickyBar: React.FC<Props> = ({ className }) => {
   return (
     <div className={cn('sticky top-30', className)}>
-      {/* <Container className="flex items-center justify-between ">
-      </Container> */}
       <Categories />
     </div>
   );

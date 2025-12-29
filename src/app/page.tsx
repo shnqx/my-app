@@ -1,5 +1,3 @@
-import { Categories } from "@/components/shared/categories"
-import { ProductCard } from "@/components/shared/product-card"
 import { ProductGroupList } from "@/components/shared/products-group-list"
 import { Container } from "@/components/shared/container"
 import { StickyBar } from "@/components/shared/sticky-bar"
@@ -14,6 +12,7 @@ async function getProducts() {
     price,
     categoryId,
     imageUrl,
+    description,
     category (
     id,
     name)
@@ -40,24 +39,21 @@ export default async function Home() {
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">
           <div className="w-[250px]">
-            {/* <Categories /> */}
             <StickyBar />
           </div>
 
           <div className="flex-1">
-            {products[0] && 
-            <div className="flex flex-col gap-10"> 
-              <ProductGroupList title="Бургеры" items={burgers} categoryId={1} />
-              <ProductGroupList title="Картошка" items={potato} categoryId={2} />
-              <ProductGroupList title="Наггетсы" items={naggets} categoryId={3} />
-              <ProductGroupList title="Напитки" items={drinks} categoryId={4} />
-            </div> 
-            } 
+            {products.length &&
+              <div className="flex flex-col gap-10">
+                <ProductGroupList title="Бургеры" items={burgers} categoryId={1} />
+                <ProductGroupList title="Картошка" items={potato} categoryId={2} />
+                <ProductGroupList title="Наггетсы" items={naggets} categoryId={3} />
+                <ProductGroupList title="Напитки" items={drinks} categoryId={4} />
+              </div>
+            }
           </div>
         </div>
       </Container>
-
-
     </>
   )
 }
