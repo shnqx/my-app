@@ -15,17 +15,18 @@ const buttonVariants = cva(
         outline:
           "border border-primary bg-background text-primary shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-card text-white hover:bg-card/80",
         ghost:
           "border border-[2px] bg-card hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "bg-muted text-white",
       },
       size: {
         default: "h-12 rounded-full px-6 has-[>svg]:px-8",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        sm: "h-3 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-12 rounded-full px-6 has-[>svg]:px-8",
+        xl: "h-15 rounded-full px-6",
         icon: "size-12",
-        "icon-sm": "size-8",
+        "icon-sm": "size-6",
         "icon-lg": "size-12",
       },
     },

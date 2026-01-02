@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '../../../components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { cn } from '../../../lib/utils';
@@ -16,12 +17,13 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const router = useRouter();
+  const [quantity, setQuantity] = useState(1);
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          'w-[1000px] max-w-[1000px] min-h-[500px] rounded-2xl bg-background p-10',
+          'w-[1000px] max-w-[1000px] min-h-[500px] rounded-2xl bg-background pt-10 pr-10',
           className,
         )}>
         <div className="flex">
@@ -32,7 +34,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
               src={product?.imageUrl}
               alt={product?.name || 'product image'}
             />
-            <DialogTitle className="text-center text-primary text-2xl font-bold">{product?.price + " " + "руб"}</DialogTitle>
+            <DialogTitle className="text-center text-primary text-2xl font-bold">{product?.price * quantity + " " + "руб"}</DialogTitle>
           </div>
           <div className="flex flex-col justify-between">
             <div>
@@ -41,14 +43,17 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
             </div>
             <div className="border-t border-popover flex justify-between">
               <div className="border border-primary mt-5 rounded-full h-17 w-37 flex justify-around items-center">
-                <Button className="rounded-full" size="icon">
+                {quantity >= 2 ? <Button onClick={() => setQuantity(quantity - 1)} className="rounded-full" size="icon">
                   <MinusIcon />
-                </Button>
-                <Button className="rounded-full" size="icon">
+                </Button> : <Button className="rounded-full" variant="link" size="icon">
+                  <MinusIcon />
+                </Button>}
+                <span>{quantity}</span>
+                <Button onClick={() => setQuantity(quantity + 1)} className="rounded-full" size="icon">
                   <PlusIcon />
                 </Button>
               </div>
-              <Button className="mt-7">Заказать</Button>
+              <Button className="h-16 mt-5">Заказать</Button>
             </div>
           </div>
         </div>

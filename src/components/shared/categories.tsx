@@ -50,7 +50,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
           )}
           href={`/#${name}`}>
           <div className="flex gap-3 items-center">
-            <Avatar className="">
+            <Avatar>
               <AvatarImage src={pic} />
             </Avatar>
             {name}

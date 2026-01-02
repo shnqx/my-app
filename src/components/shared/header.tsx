@@ -6,6 +6,7 @@ import { IconUserFilled, IconShoppingBag, IconSearch } from "@tabler/icons-react
 import { Button } from "@/components/ui/button"
 import { Input } from "../ui/input"
 import { Container } from "./container"
+import { CartDrawer } from "./cart-drawer"
 
 interface Props {
     className?: string;
@@ -36,9 +37,11 @@ export const Header: React.FC<Props> = ({ className }) => {
                     <Button className="font-bold" variant="outline">
                         <IconUserFilled /> Войти
                     </Button>
-                    <Button>
-                        <IconShoppingBag />
-                    </Button>
+                    <CartDrawer>
+                        <Button>
+                            <IconShoppingBag />
+                        </Button>
+                    </CartDrawer>
                 </div>
             </Container>
         </header>
