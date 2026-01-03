@@ -8,7 +8,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { MinusIcon, PlusIcon } from "lucide-react"
-
+import { supabase } from '@/lib/supabase'
 
 interface Props {
   product: any;
@@ -16,8 +16,37 @@ interface Props {
 }
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
+
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
+
+const addToCart = async () => {
+  const { data: { session } } = await supabase.auth.getSession()
+  const token = session?.access_token
+  if (!token) {
+    // перенаправить на логин или показать сообщение
+    router.push('/login')
+    return
+  }
+
+    const response = await fetch(`/api/cart/${product.id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({ product, quantity }),
+  })
+
+  if (!response.ok) {
+    // обработать ошибку
+    console.error('Cart error', await response.text())
+    return
+  }
+
+  const result = await response.json()
+  // дальнейшие действия (закрыть модалку, показать уведомление и т.п.)
+}
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -31,7 +60,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
             <Image
               width={700}
               height={700}
-              src={product?.imageUrl}
+              src={product?.image_url}
               alt={product?.name || 'product image'}
             />
             <DialogTitle className="text-center text-primary text-2xl font-bold">{product?.price * quantity + " " + "руб"}</DialogTitle>
@@ -53,7 +82,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
                   <PlusIcon />
                 </Button>
               </div>
-              <Button className="h-16 mt-5">Заказать</Button>
+              <Button onClick={() => addToCart()} className="h-16 mt-5">Заказать</Button>
             </div>
           </div>
         </div>

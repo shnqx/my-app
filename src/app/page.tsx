@@ -1,38 +1,27 @@
-import { ProductGroupList } from "@/components/shared/products-group-list"
+'use client'
+
+import { ProductGroupList } from "@/components/shared/products-group-list";
 import { Container } from "@/components/shared/container"
 import { StickyBar } from "@/components/shared/sticky-bar"
-import { supabase } from "@/lib/supabase";
+import { useState, useEffect } from "react";
 
-async function getProducts() {
-  const { data, error } = await supabase
-    .from('products')
-    .select(`
-    id,
-    name,
-    price,
-    categoryId,
-    imageUrl,
-    description,
-    category (
-    id,
-    name)
-  `)
+export default function Home() {
+  const [products, setProducts] = useState<any>([]);
 
-  if (error) {
-    console.error('Error fetching products:', error);
-    return [];
-  }
-  return data;
-}
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-export default async function Home() {
+  const getProducts = async () => {
+    const res = await fetch('/api/products');
+    const data = await res.json();
+    setProducts(data);
+  };
 
-  const products = await getProducts()
-
-  const burgers = products.filter((p) => p.categoryId === 1);
-  const potato = products.filter((p) => p.categoryId === 2);
-  const naggets = products.filter((p) => p.categoryId === 3);
-  const drinks = products.filter((p) => p.categoryId === 4);
+  const burgers = products.data?.filter((p: any) => p.category_id === 1) || [];
+  const potato = products.data?.filter((p: any) => p.category_id === 2) || [];
+  const naggets = products.data?.filter((p: any) => p.category_id === 3) || [];
+  const drinks = products.data?.filter((p: any) => p.category_id === 4) || [];
 
   return (
     <>
@@ -41,16 +30,13 @@ export default async function Home() {
           <div className="w-[250px]">
             <StickyBar />
           </div>
-
           <div className="flex-1">
-            {products.length &&
-              <div className="flex flex-col gap-10">
-                <ProductGroupList title="Бургеры" items={burgers} categoryId={1} />
-                <ProductGroupList title="Картошка" items={potato} categoryId={2} />
-                <ProductGroupList title="Наггетсы" items={naggets} categoryId={3} />
-                <ProductGroupList title="Напитки" items={drinks} categoryId={4} />
-              </div>
-            }
+            <div className="flex flex-col gap-10">
+              <ProductGroupList title="Бургеры" items={burgers} categoryId={1} />
+              <ProductGroupList title="Картошка" items={potato} categoryId={2} />
+              <ProductGroupList title="Наггетсы" items={naggets} categoryId={3} />
+              <ProductGroupList title="Напитки" items={drinks} categoryId={4} />
+            </div>
           </div>
         </div>
       </Container>

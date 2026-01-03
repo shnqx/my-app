@@ -1,14 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { CartDrawerItem } from './cart-drawer-item';
 import { Button } from '../ui/button';
 import { ScrollArea } from '../ui/scroll-area';
-import { Separator } from '../ui/separator';
+import { supabase } from '@/lib/supabase';
 
 import {
     Sheet,
-    SheetClose,
     SheetContent,
     SheetFooter,
     SheetHeader,
@@ -16,14 +15,54 @@ import {
     SheetTrigger
 } from '../ui/sheet';
 
-const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-)
-
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
+    const [cartItems, setCartItems] = useState<any[]>([]);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [open, setOpen] = useState(false); // Состояние открытия шторки
+
+    // 1. Получаем ID пользователя один раз при монтировании
+    useEffect(() => {
+        const fetchUserId = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) setUserId(user.id);
+        };
+        fetchUserId();
+    }, []);
+
+    // 2. Функция запроса данных
+    const getCart = async () => {
+        if (!userId) return;
+
+        try {
+            const response = await fetch('/api/cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId }),
+            });
+            const result = await response.json();
+            setCartItems(result.data || []);
+        } catch (error) {
+            console.error('Ошибка при загрузке корзины:', error);
+        }
+    };
+
+    // 3. Обновляем корзину при каждом открытии шторки
+    useEffect(() => {
+        if (open && userId) {
+            getCart();
+        }
+    }, [open, userId]);
+
+    // 4. Считаем общую сумму (предполагается, что цена в products.price)
+    const totalAmount = useMemo(() => {
+        return cartItems.reduce((acc, item) => {
+            const price = item.products?.price || 0;
+            return acc + (price * item.quantity);
+        }, 0);
+    }, [cartItems]);
 
     return (
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>{children}</SheetTrigger>
             <SheetContent className="flex flex-col !p-0 !gap-0">
                 <SheetHeader className="flex flex-col mt-10 px-4">
@@ -31,27 +70,40 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                         Корзина
                     </SheetTitle>
                 </SheetHeader>
+
                 <ScrollArea className="flex-1 w-full overflow-hidden">
                     <div className="px-4">
-                        <CartDrawerItem />
-                        <CartDrawerItem />
-                        <CartDrawerItem />
-                        <CartDrawerItem />
-                        <CartDrawerItem />
-                        <CartDrawerItem />
-                        <CartDrawerItem />
-                        <CartDrawerItem />
+                        <div className="flex flex-col gap-6 py-6">
+                            {cartItems.length > 0 ? (
+                                cartItems.map((item) => (
+                                    <CartDrawerItem key={item.id} item={item} />
+                                ))
+                            ) : (
+                                <p className="text-center text-primary py-10">Корзина пуста</p>
+                            )}
+                        </div>
                     </div>
                 </ScrollArea>
+
                 <SheetFooter className="flex-shrink-0">
                     <div className="border-t border-popover ">
                         <div className="flex mt-5 items-center justify-between">
-                            <SheetTitle className="text-input font-bold text-4xl">100</SheetTitle>
-                            <Button size="xl" className="bg-ring hover:bg-ring/80 text-white">Далее</Button>
+                            <SheetTitle className="text-input font-bold text-4xl">100 ₽</SheetTitle>
+                            <Button
+                                size="xl"
+                                className="bg-ring hover:bg-ring/80 text-white"
+                                disabled={cartItems.length === 0}
+                            >
+                                Далее
+                            </Button>
                         </div>
                     </div>
                 </SheetFooter>
             </SheetContent>
-        </Sheet >
+        </Sheet>
     );
 };
+
+
+
+

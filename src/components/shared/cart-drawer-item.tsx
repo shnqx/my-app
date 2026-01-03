@@ -11,10 +11,11 @@ import { PlusIcon } from 'lucide-react';
 import { CircleX } from 'lucide-react';
 
 interface Props {
+  item: any;
   className?: string;
 }
 
-export const CartDrawerItem: React.FC<Props> = ({ className }) => {
+export const CartDrawerItem: React.FC<Props> = ({ item, className }) => {
 
   const [quantity, setQuantity] = useState<number>(1)
 
@@ -24,12 +25,12 @@ export const CartDrawerItem: React.FC<Props> = ({ className }) => {
         <Image
           height={100}
           width={100}
-          alt={'фото товара'}
-          src={'https://orderapp-app-static.burgerkingrus.ru/x256/catalog/images/group/8e1dc6f49e08b52993d716f59c75a4a9.png'} />
+          alt={item.products.name || 'фото товара'}
+          src={item.products.image_url} />
       </div>
       <div className="justify-between flex flex-col flex-1 ">
-        <Title className="font-bold text-primary text-xl">Мега сырный</Title>
-        <Title className="text-lg text-input">100р</Title>
+        <Title className="font-bold text-primary text-xl">{item.products.name}</Title>
+        <Title className="text-lg text-input">{item.products.price}</Title>
       </div>
       <div className="justify-between flex flex-col items-end">
         <Button size="icon-sm" className="bg-backgroud hover:bg-background text-primary">

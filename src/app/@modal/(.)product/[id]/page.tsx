@@ -1,9 +1,9 @@
+// 'use client'
+
 import { Container } from "../../../../components/shared/container"
 import { ChooseProductModal } from "@/components/shared/modals/choose-product-modal";
-import { supabase } from "@/lib/supabase";
-// import  ProductForm from
-// import { prisma } from '@/prisma/prisma-client';
-import { notFound } from 'next/navigation';
+// import { useState, useEffect } from "react";
+import { supabase } from '@/lib/supabase'
 
 export default async function ProductModalPage({
   params
@@ -19,8 +19,8 @@ export default async function ProductModalPage({
       id,
       name,
       price,
-      categoryId,
-      imageUrl,
+      category_id,
+      image_url,
       description,
       category (
       id,
@@ -35,7 +35,27 @@ export default async function ProductModalPage({
     return data;
   }
 
-  const products = await getProducts()
+  const products = await getProducts();
+
+  // const [products, setProducts] = useState<any[]>([]);
+
+  // useEffect(() => {
+  //   getProducts();
+  // }, [id]);
+
+  // const getProducts = async () => {
+  //   const response = await fetch('/api/products', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ id }),
+  //   });
+
+  //   const result = await response.json();
+  //   // setProducts(result.data);
+  // };
+
 
   return (
     <Container className="flex flex-col my-10">
