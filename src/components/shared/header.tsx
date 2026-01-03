@@ -43,7 +43,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();
-        // router.push('/') - опционально, если хотите увести с закрытой страницы
+        ////////////////????????????????
     }
 
     return (
@@ -66,8 +66,6 @@ export const Header: React.FC<Props> = ({ className }) => {
                             <IconSearch />
                         </Button>
                     )}
-
-                    {/* Проверка наличия user */}
                     {user ? (
                         <Button onClick={handleSignOut} className="font-bold" variant="outline">
                             <IconUserFilled size={20} className="mr-2" /> Выйти
@@ -77,7 +75,6 @@ export const Header: React.FC<Props> = ({ className }) => {
                             <IconUserFilled size={20} className="mr-2" /> Войти
                         </Button>
                     )}
-
                     <CartDrawer>
                         <Button>
                             <IconShoppingBag />

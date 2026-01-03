@@ -24,7 +24,6 @@ const addToCart = async () => {
   const { data: { session } } = await supabase.auth.getSession()
   const token = session?.access_token
   if (!token) {
-    // перенаправить на логин или показать сообщение
     router.push('/login')
     return
   }
@@ -39,13 +38,12 @@ const addToCart = async () => {
   })
 
   if (!response.ok) {
-    // обработать ошибку
     console.error('Cart error', await response.text())
     return
   }
 
   const result = await response.json()
-  // дальнейшие действия (закрыть модалку, показать уведомление и т.п.)
+  router.back()
 }
 
   return (

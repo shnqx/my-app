@@ -14,13 +14,14 @@ import {
     SheetTitle,
     SheetTrigger
 } from '../ui/sheet';
+import { get } from 'http';
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [cartItems, setCartItems] = useState<any[]>([]);
     const [userId, setUserId] = useState<string | null>(null);
-    const [open, setOpen] = useState(false); // Состояние открытия шторки
+    const [open, setOpen] = useState(false); 
+    const [totalAmount, setTotalAmount] = useState(0);
 
-    // 1. Получаем ID пользователя один раз при монтировании
     useEffect(() => {
         const fetchUserId = async () => {
             const { data: { user } } = await supabase.auth.getUser();
@@ -29,7 +30,6 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
         fetchUserId();
     }, []);
 
-    // 2. Функция запроса данных
     const getCart = async () => {
         if (!userId) return;
 
@@ -46,19 +46,14 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
         }
     };
 
-    // 3. Обновляем корзину при каждом открытии шторки
     useEffect(() => {
         if (open && userId) {
             getCart();
         }
     }, [open, userId]);
 
-    // 4. Считаем общую сумму (предполагается, что цена в products.price)
-    const totalAmount = useMemo(() => {
-        return cartItems.reduce((acc, item) => {
-            const price = item.products?.price || 0;
-            return acc + (price * item.quantity);
-        }, 0);
+    useEffect(() => {
+         setTotalAmount(cartItems.reduce((total, item) => total + item.quantity * item.products.price, 0))
     }, [cartItems]);
 
     return (
@@ -76,7 +71,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                         <div className="flex flex-col gap-6 py-6">
                             {cartItems.length > 0 ? (
                                 cartItems.map((item) => (
-                                    <CartDrawerItem key={item.id} item={item} />
+                                    <CartDrawerItem key={item.id} item={item} onQuantityChange={() => getCart()} onDelete={() => getCart()} />
                                 ))
                             ) : (
                                 <p className="text-center text-primary py-10">Корзина пуста</p>
@@ -88,7 +83,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                 <SheetFooter className="flex-shrink-0">
                     <div className="border-t border-popover ">
                         <div className="flex mt-5 items-center justify-between">
-                            <SheetTitle className="text-input font-bold text-4xl">100 ₽</SheetTitle>
+                            <SheetTitle className="text-input font-bold text-4xl">{totalAmount} ₽</SheetTitle>
                             <Button
                                 size="xl"
                                 className="bg-ring hover:bg-ring/80 text-white"

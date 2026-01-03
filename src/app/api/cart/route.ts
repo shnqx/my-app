@@ -24,7 +24,8 @@ export async function POST(request: Request) {
           image_url
         )
       `)
-      .eq('user_id', userId);
+      .eq('user_id', userId)
+      .order('created_at', { ascending: true });
 
     if (error) {
       console.error('Ошибка Supabase:', error);
