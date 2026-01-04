@@ -2,7 +2,8 @@
 
 import { ProductGroupList } from "@/components/shared/products-group-list";
 import { Container } from "@/components/shared/container"
-import { StickyBar } from "@/components/shared/sticky-bar"
+import { Categories } from "@/components/shared/categories";
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -24,11 +25,14 @@ export default function Home() {
   const drinks = products.data?.filter((p: any) => p.category_id === 4) || [];
 
   return (
-    <> 
+    <>
       <Container className="mt-10 pb-14">
-        <div className="lg:flex gap-[80px]">
-          <div className="w-[250px]">
-            <StickyBar />
+        <div className="lg:flex items-start gap-[80px]">
+          <div className="sticky lg:top-30 top-20">
+            <ScrollArea className="">
+              <Categories />
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
           </div>
           <div className="flex-1">
             <div className="flex flex-col gap-10">

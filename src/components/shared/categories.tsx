@@ -45,7 +45,7 @@ export const Categories: React.FC<Props> = ({ className }) => {
         <Link
           key={index}
           className={cn(
-            'flex border-b text-primary items-center font-bold h-15 rounded-t-2xl px-4 lg:px-18',
+            'flex border-b text-primary items-center font-bold h-15 rounded-2xl px-4 lg:px-18',
             categoryActiveId === id && 'bg-card text-primary',
           )}
           href={`/#${name}`}>
