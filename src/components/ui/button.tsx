@@ -21,7 +21,7 @@ const buttonVariants = cva(
         link: "bg-muted text-white",
       },
       size: {
-        default: "lg:h-12 h-10 rounded-full px-3 lg:px-6 has-[>svg]:px-8",
+        default: "lg:h-12 h-10 rounded-full px-3 lg:px-5 has-[>svg]:px-6",
         sm: "h-3 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-12 rounded-full px-6 has-[>svg]:px-8",
         xl: "h-15 rounded-full px-6",
