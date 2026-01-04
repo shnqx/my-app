@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CartDrawerItem } from './cart-drawer-item';
 import { Button } from '../ui/button';
 import { ScrollArea } from '../ui/scroll-area';
@@ -14,7 +14,6 @@ import {
     SheetTitle,
     SheetTrigger
 } from '../ui/sheet';
-import { get } from 'http';
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [cartItems, setCartItems] = useState<any[]>([]);
@@ -23,11 +22,19 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [totalAmount, setTotalAmount] = useState(0);
 
     useEffect(() => {
-        const fetchUserId = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) setUserId(user.id);
-        };
-        fetchUserId();
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            const currentId = session?.user?.id || null;
+            setUserId(currentId);
+            if (!currentId) {
+                setCartItems([]); 
+            }
+        });
+
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setUserId(session?.user?.id || null);
+        });
+
+        return () => subscription.unsubscribe();
     }, []);
 
     const getCart = async () => {
@@ -53,7 +60,11 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     }, [open, userId]);
 
     useEffect(() => {
-         setTotalAmount(cartItems.reduce((total, item) => total + item.quantity * item.products.price, 0))
+         const total = cartItems.reduce((acc, item) => {
+            const price = item.products?.price || 0;
+            return acc + (item.quantity * price);
+         }, 0);
+         setTotalAmount(total);
     }, [cartItems]);
 
     return (
@@ -69,9 +80,14 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                 <ScrollArea className="flex-1 w-full overflow-hidden">
                     <div className="px-4">
                         <div className="flex flex-col gap-6 py-6">
-                            {cartItems.length > 0 ? (
+                            {userId && cartItems.length > 0 ? (
                                 cartItems.map((item) => (
-                                    <CartDrawerItem key={item.id} item={item} onQuantityChange={() => getCart()} onDelete={() => getCart()} />
+                                    <CartDrawerItem 
+                                        key={item.id} 
+                                        item={item} 
+                                        onQuantityChange={getCart} 
+                                        onDelete={getCart} 
+                                    />
                                 ))
                             ) : (
                                 <p className="text-center text-primary py-10">Корзина пуста</p>
@@ -81,8 +97,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                 </ScrollArea>
 
                 <SheetFooter className="flex-shrink-0">
-                    <div className="border-t border-popover ">
-                        <div className="flex mt-5 items-center justify-between">
+                    <div className="border-t border-popover p-4">
+                        <div className="flex items-center justify-between">
                             <SheetTitle className="text-input font-bold text-4xl">{totalAmount} ₽</SheetTitle>
                             <Button
                                 size="xl"
@@ -98,7 +114,3 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
         </Sheet>
     );
 };
-
-
-
-

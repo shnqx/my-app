@@ -87,11 +87,11 @@ export const LoginModal: React.FC<Props> = ({ className }) => {
         <Dialog open={isOpen} onOpenChange={() => router.back()}>
             <DialogContent
                 className={cn(
-                    'w-[700px] max-w-[700px] min-h-[350px] rounded-2xl bg-background pt-10 pr-10',
+                    'w-[350px] max-w-[350px] min-h-[350px] rounded-2xl bg-background pt-10 pr-10',
                     className,
                 )}>
                 <DialogTitle className="mb-8 text-center text-2xl text-primary font-bold">Вход на сайт</DialogTitle>
-                <div className="grid w-full max-w-sm gap-6">
+                <div className="grid w-full gap-6">
                     <InputGroup>
                         <InputGroupInput
                             required
@@ -105,7 +105,7 @@ export const LoginModal: React.FC<Props> = ({ className }) => {
                         </InputGroupAddon>
                     </InputGroup>
                 </div>
-                <div className="grid w-full max-w-sm gap-6">
+                <div className="grid w-full gap-6">
                     <InputGroup>
                         <InputGroupInput
                             required
@@ -127,6 +127,8 @@ export const LoginModal: React.FC<Props> = ({ className }) => {
                 </Button>
                 <h1>{message}</h1>
                 <h1>{error}</h1>
+                <h1>тест логин: shnqx@mail.ru</h1>
+                <h1>тест пароль: RCFHY016</h1>
 
 
                 {/* <main className="min-h-screen flex items-center justify-center">
