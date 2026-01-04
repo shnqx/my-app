@@ -3,6 +3,7 @@ import { ProductCard } from "./product-card";
 import { useRef, useEffect } from 'react';
 import { useIntersection } from '@mantine/hooks';
 import { useCategoryStore } from "@/store/category";
+import { cn } from "@/lib/utils";
 
 interface Props {
     title: string;
@@ -34,10 +35,10 @@ export const ProductGroupList: React.FC<Props> = ({
     }, [categoryId, entry?.isIntersecting, title])
 
     return (
-        <div className={className} ref={ref} id={title}>
-            <h1 className="text-primary mb-5 mt-6 text-5xl font-extrabold">{title}</h1>
+        <div className={cn("lg:scroll-mt-20 scroll-mt-35", className)} ref={ref} id={title}>
+            <h1 className="text-primary mb-5 mt-6 ml-5 text-5xl font-extrabold">{title}</h1>
             <div
-                className="grid grid-cols-2 mt-6 lg:grid-cols-3"
+                className="grid grid-cols-2 mt-6 ml-5 lg:grid-cols-3"
             >
                 {items.map((product, i) => {
                     return (

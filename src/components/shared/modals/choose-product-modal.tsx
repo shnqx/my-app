@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle } from '../../../components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { cn } from '../../../lib/utils';
 import React from 'react';
@@ -20,31 +20,28 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
 
-const addToCart = async () => {
-  const { data: { session } } = await supabase.auth.getSession()
-  const token = session?.access_token
-  if (!token) {
-    router.push('/login')
-    return
-  }
-
+  const addToCart = async () => {
+    const { data: { session } } = await supabase.auth.getSession()
+    const token = session?.access_token
+    if (!token) {
+      router.push('/login')
+      return
+    }
     const response = await fetch(`/api/cart/${product.id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify({ product, quantity }),
-  })
-
-  if (!response.ok) {
-    console.error('Cart error', await response.text())
-    return
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ product, quantity }),
+    })
+    if (!response.ok) {
+      console.error('Cart error', await response.text())
+      return
+    }
+    const result = await response.json()
+    router.back()
   }
-
-  const result = await response.json()
-  router.back()
-}
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -66,7 +63,7 @@ const addToCart = async () => {
           <div className="flex flex-col justify-between">
             <div>
               <DialogTitle className="text-primary font-bold lg:text-4xl mb-5">{product?.name}</DialogTitle>
-              <DialogTitle className="text-primary text-sm">{product?.description}</DialogTitle>
+              <DialogDescription className="text-primary text-sm">{product?.description}</DialogDescription>
             </div>
             <div className="border-t border-popover flex justify-between">
               <div className="border border-primary mt-5 rounded-full h-16 w-34 lg:h-17 lg:w-37 flex justify-around items-center">

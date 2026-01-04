@@ -69,12 +69,13 @@ export const CartDrawerItem: React.FC<Props> = ({ item, onDelete, onQuantityChan
     <div className="flex border-b border-popover gap-4 p-4">
       <div>
         <Image
+          className="w-[50px] h-[35px] lg:w-[100px] lg:h-[70px]"
           height={100}
           width={100}
           alt={item.products.name || 'фото товара'}
           src={item.products.image_url} />
       </div>
-      <div className="justify-between flex flex-col flex-1 ">
+      <div className="justify-between flex flex-col gap-5 flex-1 ">
         <Title className="font-bold text-primary text-xl">{item.products.name}</Title>
         <Title className="text-lg text-input">{item.products.price}</Title>
       </div>
