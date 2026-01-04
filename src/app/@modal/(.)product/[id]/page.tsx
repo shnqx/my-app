@@ -5,11 +5,8 @@ import { ChooseProductModal } from "@/components/shared/modals/choose-product-mo
 // import { useState, useEffect } from "react";
 import { supabase } from '@/lib/supabase'
 
-export default async function ProductModalPage({
-  params
-}: {
-  params: Promise<{ id: string }>
-}) {
+export default async function ProductModalPage({ params }: { params: Promise<{ id: string }> }) {
+
   const { id } = await params;
 
   async function getProducts() {
@@ -36,26 +33,6 @@ export default async function ProductModalPage({
   }
 
   const products = await getProducts();
-
-  // const [products, setProducts] = useState<any[]>([]);
-
-  // useEffect(() => {
-  //   getProducts();
-  // }, [id]);
-
-  // const getProducts = async () => {
-  //   const response = await fetch('/api/products', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ id }),
-  //   });
-
-  //   const result = await response.json();
-  //   // setProducts(result.data);
-  // };
-
 
   return (
     <Container className="flex flex-col my-10">

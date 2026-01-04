@@ -88,7 +88,7 @@ export const Header: React.FC<Props> = ({ className }) => {
         <header className={cn('sticky px-4 top-0 z-50 border-b bg-secondary border-gray-100', className)}>
             <Container className="flex items-center justify-between py-4">
                 <div>
-                    <h1 className="text-2xl uppercase text-primary font-black">Burgers</h1>
+                    <h1 onClick={() => router.push("/")} className="text-2xl uppercase text-primary font-black">Burgers</h1>
                     <p className="text-sm text-gray-400 leading-3">Просто вкусно</p>
                 </div>
 
