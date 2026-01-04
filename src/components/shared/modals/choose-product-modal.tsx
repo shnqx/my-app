@@ -50,26 +50,26 @@ const addToCart = async () => {
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          'w-[1000px] max-w-[1000px] min-h-[500px] rounded-2xl bg-background pt-10 pr-10',
+          'lg:w-[1000px] lg:max-w-[1000px] lg:min-h-[500px] rounded-2xl bg-background pt-10 pr-10',
           className,
         )}>
-        <div className="flex">
-          <div className="flex flex-col justify-between mt-10">
+        <div className="lg:flex">
+          <div className="flex flex-col justify-between mb-5 lg:mt-10">
             <Image
               width={700}
               height={700}
               src={product?.image_url}
               alt={product?.name || 'product image'}
             />
-            <DialogTitle className="text-center text-primary text-2xl font-bold">{product?.price * quantity + " " + "руб"}</DialogTitle>
+            <DialogTitle className="text-center text-primary lg:text-2xl font-bold">{product?.price * quantity + " " + "руб"}</DialogTitle>
           </div>
           <div className="flex flex-col justify-between">
             <div>
-              <DialogTitle className="text-primary font-bold text-4xl mb-5">{product?.name}</DialogTitle>
+              <DialogTitle className="text-primary font-bold lg:text-4xl mb-5">{product?.name}</DialogTitle>
               <DialogTitle className="text-primary text-sm">{product?.description}</DialogTitle>
             </div>
             <div className="border-t border-popover flex justify-between">
-              <div className="border border-primary mt-5 rounded-full h-17 w-37 flex justify-around items-center">
+              <div className="border border-primary mt-5 rounded-full h-16 w-34 lg:h-17 lg:w-37 flex justify-around items-center">
                 {quantity >= 2 ? <Button onClick={() => setQuantity(quantity - 1)} className="rounded-full" size="icon">
                   <MinusIcon />
                 </Button> : <Button className="rounded-full" variant="link" size="icon">
@@ -80,7 +80,7 @@ const addToCart = async () => {
                   <PlusIcon />
                 </Button>
               </div>
-              <Button onClick={() => addToCart()} className="h-16 mt-5">Заказать</Button>
+              <Button onClick={() => addToCart()} size="lg" className="h-16 mt-5">Заказать</Button>
             </div>
           </div>
         </div>

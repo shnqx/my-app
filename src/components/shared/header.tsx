@@ -12,6 +12,15 @@ import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '../ui/command'
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupButton,
+    InputGroupInput,
+    InputGroupText,
+    InputGroupTextarea,
+} from "@/components/ui/input-group"
+import { CircleX } from 'lucide-react';
 
 interface Props {
     className?: string;
@@ -82,7 +91,7 @@ export const Header: React.FC<Props> = ({ className }) => {
                     <h1 className="text-2xl uppercase text-primary font-black">Burgers</h1>
                     <p className="text-sm text-gray-400 leading-3">Просто вкусно</p>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
                     <div className="flex flex-col items-center">
                         {isEditing ? (
@@ -90,20 +99,37 @@ export const Header: React.FC<Props> = ({ className }) => {
                                 <Popover open={open} onOpenChange={setOpen}>
                                     <PopoverTrigger asChild>
                                         <div className="w-[300px]">
-                                            <Input
-                                                ref={inputRef}
-                                                className="bg-card rounded-full h-12 w-full"
-                                                placeholder="Поиск товаров..."
-                                                value={query}
-                                                onChange={(e) => {
-                                                    setQuery(e.target.value)
-                                                    if (e.target.value.length > 0) setOpen(true)
-                                                }}
-                                                onFocus={() => query.length > 0 && setOpen(true)}
-                                            />
+                                            <InputGroup className="bg-card rounded-full h-12 w-full flex items-center">
+                                                <InputGroupInput
+                                                    ref={inputRef}
+                                                    placeholder="Поиск товаров..."
+                                                    value={query}
+                                                    onChange={(e) => {
+                                                        setQuery(e.target.value)
+                                                        if (e.target.value.length > 0) setOpen(true)
+                                                    }}
+                                                    onFocus={() => query.length > 0 && setOpen(true)}
+                                                    className="bg-transparent border-none focus:ring-0"
+                                                />
+                                                <InputGroupAddon className="mr-3" align="inline-end">
+                                                    <InputGroupButton
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setQuery("");
+                                                            setOpen(false);
+                                                            setIsEditing(false);
+                                                        }}
+                                                        className="bg-transparent border-none p-0 text-muted-foreground hover:text-primary hover:bg-transparent transition-colors"
+                                                    >
+                                                        <CircleX className="size-5" />
+                                                    </InputGroupButton>
+                                                </InputGroupAddon>
+                                            </InputGroup>
+
+
                                         </div>
                                     </PopoverTrigger>
-                                    
+
                                     <PopoverContent
                                         sideOffset={8}
                                         className="p-0 border-none bg-transparent shadow-xl"
@@ -143,7 +169,7 @@ export const Header: React.FC<Props> = ({ className }) => {
                         )}
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    {!isEditing && <div className="flex items-center gap-2">
                         {user ? (
                             <Button onClick={handleSignOut} className="font-bold" variant="outline">
                                 <IconUserFilled size={20} className="mr-2" /> Выйти
@@ -158,7 +184,7 @@ export const Header: React.FC<Props> = ({ className }) => {
                                 <IconShoppingBag />
                             </Button>
                         </CartDrawer>
-                    </div>
+                    </div>}
                 </div>
             </Container>
         </header>
