@@ -54,6 +54,15 @@ html {
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  --breakpoint-sm: 40rem;
+  /* 640px */
+  --breakpoint-md: 48rem;
+  /* 768px */
+  --breakpoint-lg: 64rem;
+  /* 1024px */
+  --breakpoint-xl: 80rem;
+  /* 1280px */
 }
 
 :root {
@@ -129,6 +138,7 @@ html {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

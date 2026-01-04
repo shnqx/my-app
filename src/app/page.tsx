@@ -24,9 +24,9 @@ export default function Home() {
   const drinks = products.data?.filter((p: any) => p.category_id === 4) || [];
 
   return (
-    <>
+    <> 
       <Container className="mt-10 pb-14">
-        <div className="flex gap-[80px]">
+        <div className="lg:flex gap-[80px]">
           <div className="w-[250px]">
             <StickyBar />
           </div>

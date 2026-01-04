@@ -35,8 +35,10 @@ export const ProductGroupList: React.FC<Props> = ({
 
     return (
         <div className={className} ref={ref} id={title}>
-            <h1 className="text-primary mb-5 text-5xl font-extrabold">{title}</h1>
-            <div className="grid grid-cols-3">
+            <h1 className="text-primary mb-5 mt-6 text-5xl font-extrabold">{title}</h1>
+            <div
+                className="grid grid-cols-2 mt-6 lg:grid-cols-3"
+            >
                 {items.map((product, i) => {
                     return (
                         <ProductCard

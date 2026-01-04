@@ -21,7 +21,7 @@ export const ProductCard: React.FC<Props> = ({ id, name, price, imageUrl, classN
                     </div>
                     <div>
                         <h1 className="text-lg font-bold">{name}</h1>
-                        <div className="mt-4 flex justify-between">
+                        <div className="mt-4 flex items-center justify-between">
                             <p className="mt-5 font-bold">{price + "р"}</p>
                             <Button variant="destructive">Заказать</Button>
                         </div>

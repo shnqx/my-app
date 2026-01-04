@@ -40,12 +40,12 @@ export const Categories: React.FC<Props> = ({ className }) => {
   const categoryActiveId = useCategoryStore((state) => state.activeId)
 
   return (
-    <div className={cn('inline-flex flex-col bg-secondary rounded-2xl', className)}>
+    <div className={cn('inline-flex lg:flex-col bg-secondary rounded-2xl', className)}>
       {cats.map(({ name, id, pic }, index) => (
         <Link
           key={index}
           className={cn(
-            'flex border-b text-primary items-center font-bold h-15 rounded-t-2xl px-18',
+            'flex border-b text-primary items-center font-bold h-15 rounded-t-2xl px-4 lg:px-18',
             categoryActiveId === id && 'bg-card text-primary',
           )}
           href={`/#${name}`}>
