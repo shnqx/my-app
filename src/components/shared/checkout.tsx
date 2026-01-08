@@ -52,7 +52,7 @@ export const Checkout: React.FC<Props> = ({ className }) => {
     }, [userId]);
 
     return (
-        <div className={cn("flex gap-8 m-10", className)}>
+        <div className={cn("lg:flex gap-8 m-10", className)}>
             <div className="flex flex-col w-full">
                 <h1 className="text-primary font-bold text-5xl">Оформление заказа</h1>
                 <div className="bg-secondary rounded-lg p-8 mt-8 w-full">
