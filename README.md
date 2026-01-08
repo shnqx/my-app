@@ -4,11 +4,13 @@
 
 ## 🚀 Стек технологий
 
-- **Framework:** [Next.js](nextjs.org) (App Router)
-- **Styling:** [Tailwind CSS](tailwindcss.com)
-- **Language:** [TypeScript](www.typescriptlang.org)
-- **Deployment:** [Vercel](vercel.com)
-- **Icons:** Lucide React / React Icons
+- **Фреймворк:** [Next.js](nextjs.org) (App Router)
+- **БД:** [Supabase](supabase.com)
+- **Стили:** [Tailwind CSS](tailwindcss.com)
+- **Язык:** [TypeScript](www.typescriptlang.org)
+- **Компоненты:** [Shadcn](shadcn.io)
+- **Деплой :** [Vercel](vercel.com)
+- **Иконки:** Lucide React / React Icons
 
 ## 🚀 Скрины
 
@@ -23,7 +25,7 @@ https://my-app-beige-iota.vercel.app/
 
 ## ✨ Пока что не реализовно
 
-- Нет страницы оформления заказа
+- Нет Dashboard
 
 ## 🛠 Установка и запуск
 
@@ -35,7 +37,7 @@ git clone github.com
 ```bash
 npm install
 ```
-# или
+или
 ```bash 
 yarn install
 ```

@@ -15,7 +15,6 @@ export default function ProductModalPage() {
 
     const [product, setProduct] = useState<any>(null);
     const [quantity, setQuantity] = useState(1);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchProduct() {
@@ -26,9 +25,7 @@ export default function ProductModalPage() {
                 setProduct(data);
             } catch (error) {
                 console.error(error);
-            } finally {
-                setLoading(false);
-            }
+            } 
         }
         if (id) fetchProduct();
     }, [id]);
@@ -58,7 +55,6 @@ export default function ProductModalPage() {
         }
     };
 
-    if (loading) return <Container>Загрузка...</Container>;
     if (!product) return <Container>Товар не найден</Container>;
 
     return (

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { CartDrawerItem } from './cart-drawer-item';
 import { Button } from '../ui/button';
 import { ScrollArea } from '../ui/scroll-area';
@@ -20,6 +21,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [userId, setUserId] = useState<string | null>(null);
     const [open, setOpen] = useState(false); 
     const [totalAmount, setTotalAmount] = useState(0);
+    const router = useRouter();
 
     useEffect(() => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -67,6 +69,11 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
          setTotalAmount(total);
     }, [cartItems]);
 
+    const handleOpenCheckout = () => {
+        setOpen(false);
+        router.push('/checkout');
+    }
+
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>{children}</SheetTrigger>
@@ -101,6 +108,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                         <div className="flex items-center justify-between">
                             <SheetTitle className="text-input font-bold text-4xl">{totalAmount} ₽</SheetTitle>
                             <Button
+                                onClick={() => handleOpenCheckout()}
                                 size="xl"
                                 className="bg-ring hover:bg-ring/80 text-white"
                                 disabled={cartItems.length === 0}

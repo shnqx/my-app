@@ -35,12 +35,13 @@ export default function Home() {
             </ScrollArea>
           </div>
           <div className="flex-1">
-            <div className="flex flex-col gap-10">
+            {products.data && <div className="flex flex-col gap-10">
               <ProductGroupList title="Бургеры" items={burgers} categoryId={1} />
               <ProductGroupList title="Картошка" items={potato} categoryId={2} />
               <ProductGroupList title="Наггетсы" items={naggets} categoryId={3} />
               <ProductGroupList title="Напитки" items={drinks} categoryId={4} />
             </div>
+            }
           </div>
         </div>
       </Container>
