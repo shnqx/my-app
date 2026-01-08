@@ -13,11 +13,16 @@
 - **Иконки:** Lucide React / React Icons
 
 ## 🚀 Скрины
-
+Десктоп:
 ![Главная](src/images/screens/1.png)
 ![Корзина](src/images/screens/2.png)
 ![Сраница товара](src/images/screens/3.png)
 ![Авторизация](src/images/screens/4.png)
+Мобильная версия:
+![Главная](src/images/screens/5.jpg)
+![Корзина](src/images/screens/6.jpg)
+![Сраница товара](src/images/screens/7.jpg)
+![Авторизация](src/images/screens/8.jpg)
 
 ## Ссылка на гитхаб и деплой
 https://github.com/shnqx/my-app
