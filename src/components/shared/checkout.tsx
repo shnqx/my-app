@@ -56,7 +56,7 @@ export const Checkout: React.FC<Props> = ({ className }) => {
             <div className="flex flex-col w-full">
                 <h1 className="text-primary font-bold text-5xl">Оформление заказа</h1>
                 <div className="bg-secondary rounded-lg p-8 mt-8 w-full">
-                <p className="text-primary font-bold text-2xl">Введите адрес доставки</p>
+                <p className="text-primary w-full font-bold text-2xl">Введите адрес доставки</p>
                 <Input placeholder="Адрес доставки" className="mt-4 w-96" />
                 </div>
             </div>
