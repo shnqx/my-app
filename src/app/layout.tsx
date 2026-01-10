@@ -1,13 +1,19 @@
 import { Nunito } from 'next/font/google';
 import { Header } from '@/components/shared/header';
-
+import type { Metadata } from 'next';
 import './globals.css';
 
 const nunito = Nunito({
-  subsets: ['cyrillic'],
+  subsets: ['cyrillic', 'latin'], 
   variable: '--font-nunito',
   weight: ['400', '500', '600', '700', '800', '900'],
+  display: 'swap',
 });
+
+export const metadata: Metadata = {
+  title: 'Burgers',
+  description: 'Доставка вкусной еды',
+};
 
 export default function RootLayout({
   modal,
@@ -17,13 +23,12 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
-      <head>
-        <link data-rh="true" rel="icon" href="/logo.png" />
-      </head>
+    <html lang="ru" className={nunito.variable}>
       <body className={nunito.className}>
-        <Header/>
-        {children}
+        <Header />
+        <main>
+          {children}
+        </main>
         {modal}
       </body>
     </html>
